@@ -5,7 +5,6 @@
 ## Déroulement des TP
 
 Ce premier TP est destiné à vous initier aux technologies de base qu'on utilisera ensuite.
-Il ne sera pas évalué, le dernier (numéro 3) le sera.
 Le TP comporte plusieurs exercices de difficultés variables (indiquées). Il n'est pas
 conçu pour être "terminé" mais pour que vous puissiez vous familiariser ou progresser,
 et combler vos lacunes.
