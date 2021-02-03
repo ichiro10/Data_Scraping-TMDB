@@ -5,8 +5,7 @@
 ## Prise en main - diagnostic PHP (niv. 1)
 
 Une archive de modèles `modeles.tgz` est disponible dans 
-le [cours Moodle](https://im2ag-moodle.e.ujf-grenoble.fr/course/view.php?id=335) 
-ou éventuellement dans le répertoire [polytech silecs](http://www.silecs.info/formations/polytech/).
+le [cours Moodle](https://im2ag-moodle.e.ujf-grenoble.fr/course/view.php?id=335).
 Récupérer l'archive et décompressez-la (`tar -zxf` en ligne de commande).
 
 * exécutez `info.php` dans l'environnement web (Apache et navigateur). Elle repose sur la fonction de diagnostic `phpinfo()`.
@@ -34,7 +33,10 @@ Le but est de proposer une calculatrice d'intérêts composés très simple.
     * une fonction `cumul($somme, $taux, $duree)` dans une *bibliothèque* `libcalcul.php`,
     * deux pages `calcul.html` et `resultat.php` pour l'interface web,
     * un script `clicalcul.php` en ligne de commande.
-
+5. Modifiez `clicalcul.php` pour pouvoir l'appeler directement comme un exécutable, sans la commande `php`.
+Pour cela, ajoutez en première ligne `#!/usr/bin/env php` et rendez-le exécutable (`chmod +x`).
+6. Remplacez `calcul.html` et `resultat.php` par une seule page `calcul.php` 
+qui affiche à la fois le formulaire de saisie et le résultat du calcul.
 
 
 ## Un peu de style en CSS (niv. 1)
@@ -42,8 +44,9 @@ Le but est de proposer une calculatrice d'intérêts composés très simple.
 On va maintenant se servir de la norme CSS pour améliorer un peu l'affichage HTML. 
 On va se baser sur les fichiers `elements.html` et  `elements.css`.
 
-1. Copiez `elements.html` pour le modifier. Commencez par visualiser l'arbre html 
-(*Ctrl + Shift + I > Inspecteur*). Quel est l'élément de niveau le plus profond ? 
+1. Copiez `elements.html` pour le modifier. 
+Commencez par visualiser l'arbre html dans votre navigateur (*Ctrl + Shift + I*).
+Quel est l'élément de niveau le plus profond ? 
 à quel niveau cela correspond-t-il ? (en comptant `<html>` à 0).
 2. Avec les styles CSS, ajoutez un cadre autour de la table.
 3. Passez en *vert non souligné* les liens par défaut, puis 
@@ -81,13 +84,16 @@ L'*Inspecteur* intégré à chaque navigateur (ou presque) vous permet de l'expl
 Le but est d'afficher une analyse "Unicode" des caractères tapés dans un formulaire ou en ligne de commande. Par exemple "A" a pour *codepoint* "U+0041" (41 en hexadécimal ou 65 en décimal).
 
 1. Écrivez un script CLI qui affiche le code de l'initiale de chaque mot passé en argument.
-    * Avec des caractères non ASCII (ce qui est l'intérêt de l'exercice) il faut utiliser les fonctions `mb_substr()`, `mb_ord()` et éventuellement `mb_internal_encoding()`  de l'extension `php-mbstring`.  MB signifie "multi-bytes".
+    * Avec des caractères non ASCII (ce qui est l'intérêt de l'exercice) il faut utiliser les fonctions
+`mb_substr()`, `mb_ord()`, `dechex()` et éventuellement `mb_internal_encoding()`  de l'extension `php-mbstring`. 
+MB signifie "multi-bytes".
     * parmi les modèles vous disposez d'un fichier *multiscripts.html* contenant un échantillonnage
       de textes en plusieurs *écritures*, le tout encodé en UTF-8/Unicode.
 2. Faites la même chose en interface web, à partir d'un champ de formulaire (GET).
 3. Les chartes unicode sont traditionnellement représentées comme des tableaux de 16 colonnes et N lignes, 
    alignés sur les codes hexadécimaux. 
-   Affichez un tableau html de la ligne complète contenant un caractère donné.
+   Affichez un tableau html de la ligne complète contenant un caractère donné. 
+   Vous pourrez utiliser les fonctions `mb_chr()` (réciproque de `mb_ord()` et `hexdec()`.
 4. Ajoutez au bas de chaque case le code 'U+xxxx' en petit, et un lien vers la page de référence du caractère.
     * en CSS, la directive `font-size`
     * pour exemple, [une page de référence Unicode](http://unicode.org/cldr/utility/character.jsp?a=1f60a) (par exemple 😊)
