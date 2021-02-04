@@ -92,8 +92,9 @@ MB signifie "multi-bytes".
 2. Faites la même chose en interface web, à partir d'un champ de formulaire (GET).
 3. Les chartes unicode sont traditionnellement représentées comme des tableaux de 16 colonnes et N lignes, 
    alignés sur les codes hexadécimaux. 
-   Affichez un tableau html de la ligne complète contenant un caractère donné. 
-   Vous pourrez utiliser les fonctions `mb_chr()` (réciproque de `mb_ord()` et `hexdec()`.
+   Voici par exemple [la table unicode centrée sur la lettre F](https://unicode-table.com/en/#0046).
+   Affichez un tableau html de la **ligne** complète contenant un caractère donné. 
+   Vous pourrez utiliser les fonctions `mb_chr()` (réciproque de `mb_ord()`) et `hexdec()`.
 4. Ajoutez au bas de chaque case le code 'U+xxxx' en petit, et un lien vers la page de référence du caractère.
     * en CSS, la directive `font-size`
     * pour exemple, [une page de référence Unicode](http://unicode.org/cldr/utility/character.jsp?a=1f60a) (par exemple 😊)
@@ -101,7 +102,6 @@ MB signifie "multi-bytes".
    [exec()](http://php.net/manual/fr/function.exec.php), ajoutez au *rollover* le nom normalisé du caractère pointé."
     * pour la CSS, je vous conseille d'utiliser les classes "char" pour le caractère et "extra" pour le sous-titre
     * un effet *rollover* simple s'obtient en utilisant l'attribut `title`, par exemple dans `<span title="message d'aide">support</span>`.
-<!--* (niv. 3) En utilisant le webservice [wsunicode](http://vps3.silecs.info/wsunicode.php?help) fourni pour le TP, ajoutez un message *rollover* qui indique pour chaque caractère son nom normalisé.-->
 
 ### Exemple d'affichage à obtenir
 
