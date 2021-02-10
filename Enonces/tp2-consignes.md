@@ -7,7 +7,7 @@
 Ce deuxième TP pour but de traiter des données ouvertes à l'aide des formats vus en cours,
 sur des données officielles : points wifi de la ville de Grenoble, différents formats.
 
-Une évaluation est prévue. Vous aurez *une semaine* après le TP pour rendre un rapport par binôme.
+Une évaluation est prévue. Vous aurez *deux semaines* après le TP pour rendre un rapport par binôme.
 
 Seront évaluées dans le rapport :
 
@@ -20,14 +20,7 @@ Seront évaluées dans le rapport :
 Vous pouvez demander de l'aide mais essayez de chercher par vous-même avant.
 Dans l'énoncé, les sections Documentation et "Hints" sont prévues pour vous aider.
 
-La remise du rapport se fait sur Moodle, cours MMDO dans le devoir "TP 2 groupe X".
-Vous pouvez déposer un fichier unique constitué d'une archive tgz, contenant vos
-fichiers de code (shell, php, etc.) et votre rapport. 
-Vous pouvez également, si vous préférez, déposer un lien vers un dépôt public type github.
-
-Formats acceptés pour le rapport : html, markdown, pdf, odt, doc, docx. 
-**Convention de nommage à respecter `tp2gN-BB-Nom1-Nom2.ext` où `BB` est votre numéro de binôme (cf post-it)**. 
-Par exemple `tp2g2-03-Dupont-Martin.tgz`.
+Le code et le compte-rendu sont évalués sur la base de votre dépôt gitlab/github.
 
 
 ## Réalisation en pratique
