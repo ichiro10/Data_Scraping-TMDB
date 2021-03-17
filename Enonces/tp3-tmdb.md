@@ -45,7 +45,8 @@ les mêmes éléments, en version originale, version anglaise, et version franç
 
 5. **Image (web)**. Dans la même page, ajouter une dernière ligne affichant en taille réduite l'affiche
 (*poster*). Vous aurez besoin des données fournies par l'API 
-[configuration](http://api.themoviedb.org/3/configuration) pour déduire l'URL et les tailles disponibles.
+[configuration](http://api.themoviedb.org/3/configuration?api_key=ebb02613ce5a2ae58fde00f4db95a9c1) 
+pour déduire l'URL et les tailles disponibles.
 
 **Hint** Lisez les indications de [Getting started - Images](https://developers.themoviedb.org/3/getting-started/images).
 
