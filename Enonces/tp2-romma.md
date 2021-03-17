@@ -16,7 +16,7 @@ D'autre part, seules certaines stations du réseau nous sont accessibles
 (en fonction de notre clé) ; les autres renvoient un résultat vide.
 
 Le service est disponible à partir d'une API de ce format : 
-<http://romma.fr/releves_romma_xml.php?id=e50aa81fbd8e831dae&station=72>
+<https://romma.fr/releves_romma_xml.php?id=e50aa81fbd8e831dae&station=72>
 et les données sont fournis en Json, en **"temps réel"** ou presque : les données sont
 actualisées toutes les dix minutes, ce qui est largement assez fin pour suivre les phénomènes
 météorologiques (à l'exception des rafales de vent).
