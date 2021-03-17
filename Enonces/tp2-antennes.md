@@ -4,7 +4,7 @@
 
 Technologies : csv, filtres unix, géocodage, json.
 
-Dans cet exercice, on va utiliser la plateforme [Data Métropole](http://data.beta.metropole-grenoble.fr/)
+Dans cet exercice, on va utiliser la plateforme [Data Métropole](https://data.metropole-grenoble.fr/)
 pour récupérer des données institutionnelles et les retraiter.
 Quels organismes participent à ce site ?
 
@@ -99,8 +99,12 @@ puis qui traite le formulaire en interrogeant le webservice de la question préc
 ## Antennes GSM
 
 On change de jeu de données, en utilisant maintenant la liste des 
-[antennes GSM situées à Grenoble](http://data.metropolegrenoble.fr/ckan/dataset/l-ensemble-des-antennes-gsm).
+[antennes GSM situées à Grenoble](https://data.metropolegrenoble.fr/ckan/dataset/l-ensemble-des-antennes-gsm).
 Ce jeu ressemble au précédent, mais il est un peu plus riche.
+Par contre, les coordonnées (latitude, longitude) ne sont disponibles que dans le format geojson.
+Dans le format CSV, elles sont exprimées en (X, Y) qui est un format métrique national (CC 9 zones - 45)
+<!-- [convertisseur](https://geofree.fr/gf/coordinateconv.asp#listSys) -->
+qui ne nous intéresse pas. Nous utiliserons donc le **fichier source geojson** pour l'exercice.
 
 1. **CSV Antennes**. 
 Combien d'antennes sont référencées ? 
