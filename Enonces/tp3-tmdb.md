@@ -34,7 +34,8 @@ programme php minimal utilisant `tp3-helper.php`.
 
 3. **Page de détail (web)**. Pour un film fourni par son identifiant (un entier), vous afficherez
 une page web donnant les éléments suivants : son titre, son titre original, sa
-*tagline* (si elle existe), sa description, et un lien vers la page publique TMDB.
+*tagline* (si elle existe), sa description, et un lien vers la page publique TMDB
+([exemple](https://www.themoviedb.org/movie/550)).
 
 
 ### Les choses sérieuses
@@ -42,6 +43,8 @@ une page web donnant les éléments suivants : son titre, son titre original, sa
 4. **Page en 3 colonnes (web)**. Améliorer la page précédente, pour afficher en 3 colonnes (dans un tableau),
 les mêmes éléments, en version originale, version anglaise, et version française 
 (évidemment, il peut y avoir redite si la VO est anglaise ou française). 
+Vous ferez attention à diviser le traitement en deux, d'abord une étape de chargement et prétraitement des données,
+remplissant une structure de données propre, *puis* une étape d'affichage, utilisant cette structure de données.
 
 5. **Image (web)**. Dans la même page, ajouter une dernière ligne affichant en taille réduite l'affiche
 (*poster*). Vous aurez besoin des données fournies par l'API 
@@ -50,27 +53,35 @@ pour déduire l'URL et les tailles disponibles.
 
 **Hint** Lisez les indications de [Getting started - Images](https://developers.themoviedb.org/3/getting-started/images).
 
-6. **Requête (web)**. Trouver et afficher tous les films de la trilogie *Le Seigneur des Anneaux* 
-(en vo *The Lord of the Rings*) de Peter Jackson.
+6. Dans la présentation en colonnes, affichez également le lien vers la page officielle du film si elle existe (`homepage` dans les données json)
+**et** si le lien fonctionne.
+
+7. **Requête (web)**. Trouver et afficher tous les films de la trilogie *Le Seigneur des Anneaux* 
+(en vo *The Lord of the Rings*) de Peter Jackson. Pour commencer, vous pouvez cosidérer que vous avez
+connaissez l'identifiant numérique de collection.
+Ensuite, faire la recherche textuelle.
 S'il y a ambiguité, afficher tous les films trouvés, avec leur identifiant, leur date de sortie et
-leur titre.
+leur titre. Vous pouvez adopter le même affichage en 3 colonnes que précédemment.
+Si vous voulez jouer un peu avec les limites, faites la même chose pour *Star Wars*.
 
 **Hint** : TMDB gère la notion de *collection*, qui est indiquée dans les données retournées par l'API. 
 Il suffit alors de remplacer "movie" par "collection" dans l'url.
 
 **Hint** : [search and query](https://developers.themoviedb.org/3/getting-started/search-and-query-for-details)
 
-7. **Distribution (web)**. Trouver et afficher tous les acteurs de la série des films précédents, avec leurs rôles,
-et le nombre de films où ils apparaissent.
+8. **Distribution (web)**. Trouver et afficher tous les acteurs de la série des films précédents, avec leurs rôles,
+et le nombre de films où ils apparaissent (sans les répéter).
 
-**Hint** : il suffit d'ajouter [/credits](https://developers.themoviedb.org/3/credits) à la fin du paramètre d'interrogation.
+**Hint** : il suffit d'ajouter `/casts` à la fin du paramètre d'interrogation.
+Si ensuite vous voulez détailler les informations sur un acteur, vous pouvez utiliser l'API
+[person](https://developers.themoviedb.org/3/people/get-person-details) mais ce n'est pas demandé dans ce TP.
 
-8. **Distribution++**. Peut-on afficher tous les acteurs **qui jouent des hobbits** ? Comment ?
+9. **Distribution++**. Peut-on afficher tous les acteurs **qui jouent des hobbits** ? Comment ?
 
-9. **Casting**. Dans la liste des acteurs, transformer chaque acteur en lien-rebond donnant la liste des films auxquels
+10. **Casting**. Dans la liste des acteurs, transformer chaque acteur en lien-rebond donnant la liste des films auxquels
 il a participé, ainsi que le nom du rôle. Est-ce simple à faire ?
 
-10. **Bande-annonce**. Intégrer à la page récapitulative d'un film un lien vers sa bande-annonce (*trailer*). 
+11. **Bande-annonce**. Intégrer à la page récapitulative d'un film un lien vers sa bande-annonce (*trailer*). 
 Encore mieux, intégrer un lecteur vidéo (*embed*) dans la page, permettant de lancer la lecture.
 
 **Hint** : [Cette discussion](https://www.themoviedb.org/talk/566f816f92514173ff014fdc) sur le forum TMDB comporte toutes les réponses.
