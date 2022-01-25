@@ -25,7 +25,7 @@ Le TP se déroule **sous Linux** à la fois :
 * en environnement web : exécution de PHP dans le serveur Apache, utilisation d'un navigateur sur le PC local
 * en ligne de commande (CLI, *command line interface*) en partie pour PHP.
 
-Vous devrez utiliser un éditeur de texte adapté à la programmation (vim, Gedit, Atom, etc.)
+Vous devrez utiliser un éditeur de texte adapté à la programmation (vim, Gedit, VSCodium, Atom, etc.)
 
 
 ### Installation sur les machines personnelles  
@@ -41,7 +41,7 @@ Les paquets (Debian ou Ubuntu) à installer :
 * la commande auxiliaire `unicode`.
 
 Selon l'ancienneté de votre système, les paquets PHP seront en version 
-7.x ou 8.0, mais cela n'a aucun impact sur la suite.
+7.x ou 8.x, mais cela n'a aucun impact sur la suite.
 
 Vérifiez que <http://localhost> sert bien la page d'accueil par défaut d'Apache.
 
@@ -49,7 +49,7 @@ Vérifiez que <http://localhost> sert bien la page d'accueil par défaut d'Apach
 
 Activez les messages d'erreur dans votre configuration PHP/Apache :
 
-Dans le fichier `/etc/php/7.0/apache2/php.ini` (ou équivalent) configurez les lignes suivantes 
+Dans le fichier `/etc/php/8.0/apache2/php.ini` (ou équivalent) configurez les lignes suivantes 
 selon leur valeur de **Développement** (et non de production) :
 
 ```
@@ -96,9 +96,9 @@ Puis visualisez dans un navigateur l'url <http://localhost/PW>.
 * [W3Schools](http://www.w3schools.com/), documentation orientée débutants, simple, mais parfois approximative
 * [Référence W3C HTML5](http://www.w3.org/TR/html5/)
 * [Documentation PHP officielle](http://php.net/docs.php)
+* [Mozilla Developer Network (MDN)](https://developer.mozilla.org/fr/), documentation multi-sujets, bon niveau
 
 <!--
-* [Mozilla Developer Network (MDN)](https://developer.mozilla.org/en-US/), documentation multi-sujets, bon niveau
 * [L'API Javascript DOM (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
 * [L'API web JavaScript (MDN)](https://developer.mozilla.org/en-US/docs/Web/API)
 -->
