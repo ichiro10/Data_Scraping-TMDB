@@ -1,5 +1,7 @@
 <?php
 
+$csv = $argv[1];
+
 /** comptage des points d'acces */
 function struct_don1($file){
  $tab = [];
@@ -7,7 +9,9 @@ function struct_don1($file){
  foreach ($line as  $l) {
    $tab_l = explode(",",trim($l));
    if(isset($tab_l[4])){
-     $tab_l = ["name"=> $tab_l[0],"adresse"=>$tab_l[1],"adresse_sup"=>$tab_l[2],"longitude"=>$tab_l[3],"latitude"=>$tab_l[4]];
+    $tab_l[1] = trim(trim($tab_l[1], '"'));
+    $tab_l[2] = trim(trim($tab_l[2], '"'));
+    $tab_l = ["name"=> $tab_l[0],"adresse"=>  $tab_l[1],"adresse_sup"=> $tab_l[2],"longitude"=>$tab_l[3],"latitude"=>$tab_l[4]];
    }
    else{
      $tab_l = ["name"=> $tab_l[0],"adresse"=>$tab_l[1],"longitude"=>$tab_l[2],"latitude"=>$tab_l[3]];
@@ -17,6 +21,10 @@ function struct_don1($file){
  return $tab;
 
 }
+
+print_r(struct_don1($csv));
+echo "Structuration des données terminée (M1)\n";
+
 function smart_curl($url, $verb, $post_argument = -1){
   $ch = curl_init();
   curl_setopt($ch,CURLOPT_URL, $url);
@@ -43,19 +51,31 @@ function comptage_php($file){
 
 function struct_don2($file){
   $tab = [];
-  if (($handle = fopen("file", "r")) !== FALSE) {
+  if (($handle = fopen($file, "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-      if(isset($data[4])){
-        $data = ["name"=> $tab_l[0],"adresse"=>$tab_l[1],"adresse_sup"=>$tab_l[2],"longitude"=>$tab_l[3],"latitude"=>$tab_l[4]];
+      $addrs = explode(",",$data[1]);
+      $addrs[0] = trim($addrs[0]);
+
+      if(count($addrs) != 1){
+        $addrs[1] = trim($addrs[1]);
+        $data = ["name"=> $data[0],"adresse"=>$addrs[0],"adresse_sup"=>$addrs[1],"longitude"=>$data[2],"latitude"=>$data[3]];
       }
       else{
-        $data = ["name"=> $tab_l[0],"adresse"=>$tab_l[1],"longitude"=>$tab_l[2],"latitude"=>$tab_l[3]];
+        $data = ["name"=> $data[0],"adresse"=>$data[1],"longitude"=>$data[2],"latitude"=>$data[3]];
       }
       $tab[]=$data;
+    }
+    fclose($handle);
+  }
+  return $tab;
 }
- fclose($handle);
-}
-}
+
+print_r(struct_don2($csv));
+echo "Structuration des données terminée (M2)\n";
+
+echo struct_don1($csv) == struct_don2($csv) ? "Les deux structures sont identiques" : "Les deux structures sont différentes";
+echo "\n";
+
 function proximite($file, $mypoint){
   $tab = struct_don1($file);
   $res=[];
@@ -77,7 +97,7 @@ function proximiteTopN($file, $mypoint , $N ){
   $tab = struct_don1($file);
   $res=[];
   foreach ($tab as $l) {
-    $cordpoint= ['lon'=>l["longitude"], 'lat'=>l["latitude"]]
+    $cordpoint= ['lon'=>l["longitude"], 'lat'=>l["latitude"]];
     $d= distance($mypoint, $cordpoint);
     $res[]=[ "name"=>$l["name"] ,
               "distance "=> $distance($mypoint, $cordpoint),
