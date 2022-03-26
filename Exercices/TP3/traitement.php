@@ -2,14 +2,6 @@
 require_once("tp3-helpers.php");
 require_once("functions.php");
 $id = $_GET['index'];
-$data1 = json_decode(tmdbget("movie/$id"));
-$data2 = json_decode(tmdbget("movie/$id/videos",['language'=>"en-US"]));
-
-$video_key= $data2->results[0]->key;
-$poster_path=$data1->poster_path; 
-
-
-$All=All_languages_info($id);
 ?>
 
 <!DOCTYPE html>
@@ -50,63 +42,14 @@ $All=All_languages_info($id);
       <a href="Q7-9.php">ACTORS OF A COLLECTION</a>
       &nbsp &nbsp &nbsp &nbsp
       <a href="actor.php">ROLE OF ACTORS</a>
-  </nav>
-
-  <table>
-    <caption>
-        <?php echo "Informations sur le film d'identifiant:"."$id" ?>
-    </caption>  
-    <br>
-    <tr>
-        <th>&nbsp;</th>
-        <th>VO</th>
-        <th>VANG</th>
-        <th>VF</th>
-    </tr>
-    </br>      
-    <tr>
-       <th><?php echo"Titre" ?></th>
-       <td><?php echo $All["OR"]['title'] ?></td>
-       <td><?php echo $All["ANG"]['title'] ?></td>
-       <td><?php echo $All["FR"]['title'] ?></td>
-    </tr>
-    <tr>
-       <th><?php echo"Titre original" ?></th>
-       <td><?php echo $All["OR"]['originale_title'] ?></td>
-       <td><?php echo $All["ANG"]['originale_title'] ?></td>
-       <td><?php echo $All["FR"]['originale_title'] ?></td>
-    </tr>
-    <tr>
-       <th><?php echo"Tag" ?></th>
-       <td><?php echo $All["OR"]['tagline']?></td> 
-       <td><?php echo $All["ANG"]['tagline'] ?></td> 
-       <td><?php echo $All["FR"]['tagline'] ?></td>  
-    </tr>
-    <tr>
-       <th><?php echo"Description" ?></th>
-       <td><?php echo $All["OR"]['description'] ?></td>
-       <td><?php echo $All["ANG"]['description'] ?></td>
-       <td><?php echo $All["FR"]['description'] ?></td>
-    </tr>
-    <tr>
-       <th><?php echo"Lien TMDB" ?></th>
-       <td><?php echo $All["OR"]['link'] ?></td>
-       <td><?php echo $All["ANG"]['link'] ?></td>
-       <td><?php echo $All["FR"]['link'] ?></td>
-    </tr>
-    <tr>
-        <th><?php echo"Poster" ?></th>
-        <td colspan="3" ><img src= <?php echo"https://image.tmdb.org/t/p/w342/".$poster_path?> ></td>
-
-    </tr>  
-    <tr>
-        <th><?php echo"Trailer" ?></th>
-        <td colspan="3"   ><iframe src=<?php echo"https://www.youtube.com/embed/".$video_key?>
-             height="600" width="1000" allowfullscreen=""></iframe>
-                    </td>
-
-    </tr>  
-</table>
+   </nav>
+   <?php 
+            echo '<div class="table">';
+            $All=All_languages_info($id);
+            movie_to_html($All);
+            echo '</div>';
+     ?>
+  
     
 </body>     
 </html>
