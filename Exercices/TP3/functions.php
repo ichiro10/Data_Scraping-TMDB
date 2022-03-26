@@ -1,10 +1,17 @@
 <?php
 require_once("tp3-helpers.php");
 
+/*
+ Paramètre : $id = identifiant du film 
+             $language= la version de la langue d'affichage des information 
+ Valeur de retour : $info = tableau associatif contenant les informations du film d'identifiant id
+  selon le language choisie
 
+*/
 
     function get_info($id, $language=null){
         $param = array("append_to_response" => "videos");
+        // si $language is not set => les données seront en language par défaut
         if (!isset($language))
               $data = json_decode(tmdbget("movie/" . $id, $param));
         else {
@@ -27,6 +34,15 @@ require_once("tp3-helpers.php");
         return $info;
 
     }
+
+/*
+ Paramètre : $id = identifiant du film 
+
+ Valeur de retour : $All = tableau associatif contenant tout les versions de langues (Originale , anglaise , francaise)
+
+*/
+
+
     function All_languages_info($id){
         $All=[];
         $All["OR"]=get_info($id );
@@ -34,6 +50,10 @@ require_once("tp3-helpers.php");
         $All["FR"]=get_info($id ,"fr");
         return $All;
     }
+
+
+ /*
+ Affichage en HTML  */   
     function movie_to_html($All){
         echo '<table>';
         echo '<caption>'."Informations sur le film:".'</caption>';
@@ -72,6 +92,8 @@ require_once("tp3-helpers.php");
     function get_moviesofcollection(){
         $name= "The Lord of rings";
         $data1 = json_decode(tmdbget("/search/collection", ["query" => $name]));
+        /*on recupere l'id de la collection , puis à travers cet id on va recuperer les informations de chaque film de cet collection
+        notamment leur identifiants  */
         $id = $data1->results[0]->id;
         $data2 = json_decode(tmdbget("collection/$id"));
         $Collection=[];
@@ -82,11 +104,12 @@ require_once("tp3-helpers.php");
             $film["date_sortie"]=$data2-> parts[$i]->release_date;
             $Collection[]=$film; 
         }
+        /*on recupere les données de chaque films de cette colletion id , title , date de sortie  */
         return $Collection;
 
 
     }
-
+/*affichage en html de l'ensemble des films de la collection */
     function moviesocollection_tohtml($Collection){
         echo '<table>';
         echo '<caption>'."Informations sur le film:".'</caption>';
@@ -111,12 +134,14 @@ require_once("tp3-helpers.php");
     }
 
     function get_actors() {
+        /**on recupere pour chaque film de la collection des information sur ses acteurs  */
         $credits = [ "movie/120/credits" , "movie/121/credits", "movie/122/credits"];
         $actor_list= [];
         for($i=0;$i<3;$i++) {
             $output = tmdbget($credits[$i], null);
             $array_tmp=json_decode($output,true);
             foreach($array_tmp['cast'] as $actor) { 
+                //au cas ou l'acteur existe deja en actant dans un autre film de la collection on fait que incrementer son nombre de film 
                 if (array_key_exists($actor['name'], $actor_list) !=false ) {
                     $actor_list[$actor['name']]['nb_occu']++;
                 }
@@ -131,7 +156,7 @@ require_once("tp3-helpers.php");
         }
         return $actor_list;
     }
-
+// affichage des information des acteurs de la collection en html 
     function to_html_actors($actor_list) {
         echo '<table>';
         echo '<thead><tr>';
@@ -142,6 +167,7 @@ require_once("tp3-helpers.php");
         echo '<tbody>';
         foreach($actor_list as $actor) {
                 echo '<tr>';
+                //chaque nom d'acteur est un lien  redondant vers la page de l'ensemble des roles de cet acteur 
                 echo '<td><a href="traitement4.php?id='.$actor['id'].'">' . $actor['actor'] . "</a></td>";
                 echo '<td>'.$actor['character'].'</td>';
                 echo '<td>'.$actor['nb_occu'].'</td>';
@@ -151,7 +177,8 @@ require_once("tp3-helpers.php");
         echo '</table>';
     }
 
-
+/*affichage de l'ensemble de roles joué par un acteur à travers son ID  
+la valeur de retour est un tableau associatif contenant le nom du film , son role et une description */
     function get_roles_actor($id) {
         $person = "person/".$id."/movie_credits";
         $movie_list= [];
@@ -165,7 +192,7 @@ require_once("tp3-helpers.php");
         }
         return $movie_list;
     }
-
+//affichage des roles d'un acteur en html 
     function to_html_roles($actor_movie_list) {
         echo '<table>';
         echo '<thead><tr>';
