@@ -8,6 +8,15 @@ Sujet choisi : TMDB
 
 *Ali GHAMMAZ
 
+
+NB :
+ On peut facilement basculé entre les differents parties demandés en TP en ouvrant la page d'acceuil TMDB homepage.php et choisir la fonctionnalité voulue : 
+ 
+   MOVIES : Affichage des informations d'un film par ID.
+   COLLECTION : Affichage des différents films de la collection The Lord of Ring .
+   ACTORS OF A COLLECTION : Affichage de tout les acteurs participant à la collection the lord of rings . 
+   ROLES OF ACTORS : Affichage de tout les roles joués par un acteur par son ID . 
+   
 1-format de réponse : JSON 
  film concerné : FIGHT CLUB 
  
@@ -109,7 +118,6 @@ On implémente donc dans une table html les informations de chaque film trouvé 
  le paramètre $video_key est récupéré lors du chargement des données $data du film en question ,  en utilisant: 
  
  $video_key= $data->results[0]->key;
- 
  
     
     
