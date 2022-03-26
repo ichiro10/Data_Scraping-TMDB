@@ -1,37 +1,15 @@
 <?php
 require_once("tp3-helpers.php");
+require_once("functions.php");
 $id = $_GET['index'];
 $data1 = json_decode(tmdbget("movie/$id"));
-$titre1=$data1->title;
-$titre_original1=$data1->original_title;
-if(isset($data1->tagline)){
-    $tagline1=$data1->tagline;
-};
-$description1=$data1->overview;
-$lien_page_pub1=$data1->homepage;
-$langue_original=$data1->original_language;
+$data2 = json_decode(tmdbget("movie/$id/videos",['language'=>"en-US"]));
+
+$video_key= $data2->results[0]->key;
 $poster_path=$data1->poster_path; 
-$data2 = json_decode(tmdbget("movie/$id",['language'=>"$langue_original"]));
-$titre2=$data2->title;
-$titre_original2=$data2->original_title;
-if(isset($data2->tagline)){
-    $tagline2=$data2->tagline;
-};
-$description2=$data2->overview;
-$lien_page_pub2=$data2->homepage;
-$data3 = json_decode(tmdbget("movie/$id",['language'=>"fr"]));
-$titre3=$data3->title;
-$titre_original3=$data3->original_title;
-if(isset($data3->tagline)){
-    $tagline3=$data3->tagline;
-};
-$description3=$data3->overview;
-$lien_page_pub3=$data3->homepage;
 
-$data4 = json_decode(tmdbget("movie/$id/videos",['language'=>"en-US"]));
 
-$video_key= $data4->results[0]->key;
-
+$All=All_languages_info($id);
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +51,7 @@ $video_key= $data4->results[0]->key;
       &nbsp &nbsp &nbsp &nbsp
       <a href="actor.php">ROLE OF ACTORS</a>
   </nav>
+
   <table>
     <caption>
         <?php echo "Informations sur le film d'identifiant:"."$id" ?>
@@ -87,33 +66,33 @@ $video_key= $data4->results[0]->key;
     </br>      
     <tr>
        <th><?php echo"Titre" ?></th>
-       <td><?php echo $titre2 ?></td>
-       <td><?php echo $titre1 ?></td>
-       <td><?php echo $titre3 ?></td>
+       <td><?php echo $All["OR"]['title'] ?></td>
+       <td><?php echo $All["ANG"]['title'] ?></td>
+       <td><?php echo $All["FR"]['title'] ?></td>
     </tr>
     <tr>
        <th><?php echo"Titre original" ?></th>
-       <td><?php echo $titre_original2 ?></td>
-       <td><?php echo $titre_original1 ?></td>
-       <td><?php echo $titre_original3 ?></td>
+       <td><?php echo $All["OR"]['originale_title'] ?></td>
+       <td><?php echo $All["ANG"]['originale_title'] ?></td>
+       <td><?php echo $All["FR"]['originale_title'] ?></td>
     </tr>
     <tr>
        <th><?php echo"Tag" ?></th>
-       <td><?php echo $tagline2 ?></td> 
-       <td><?php echo $tagline1 ?></td> 
-       <td><?php echo $tagline3 ?></td>  
+       <td><?php echo $All["OR"]['tagline']?></td> 
+       <td><?php echo $All["ANG"]['tagline'] ?></td> 
+       <td><?php echo $All["FR"]['tagline'] ?></td>  
     </tr>
     <tr>
        <th><?php echo"Description" ?></th>
-       <td><?php echo $description2 ?></td>
-       <td><?php echo $description1 ?></td>
-       <td><?php echo $description3 ?></td>
+       <td><?php echo $All["OR"]['description'] ?></td>
+       <td><?php echo $All["ANG"]['description'] ?></td>
+       <td><?php echo $All["FR"]['description'] ?></td>
     </tr>
     <tr>
        <th><?php echo"Lien TMDB" ?></th>
-       <td><?php echo $lien_page_pub2 ?></td>
-       <td><?php echo $lien_page_pub1 ?></td>
-       <td><?php echo $lien_page_pub3 ?></td>
+       <td><?php echo $All["OR"]['link'] ?></td>
+       <td><?php echo $All["ANG"]['link'] ?></td>
+       <td><?php echo $All["FR"]['link'] ?></td>
     </tr>
     <tr>
         <th><?php echo"Poster" ?></th>
@@ -129,7 +108,7 @@ $video_key= $data4->results[0]->key;
     </tr>  
 </table>
     
-</body>
+</body>     
 </html>
 
 

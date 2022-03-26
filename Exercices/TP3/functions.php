@@ -1,6 +1,74 @@
 <?php
 require_once("tp3-helpers.php");
 
+
+    function get_info($id, $language){
+        if($language="OR"){
+            $data1 = json_decode(tmdbget("movie/$id/videos",['language'=>"en-US"]));
+            $langue_original= $data1->original_language;
+            $data = json_decode(tmdbget("movie/$id",['language'=>"$langue_original"]));
+        }
+        elseif($language="ANG"){
+            $data = json_decode(tmdbget("movie/$id/videos",['language'=>"en-US"]));
+        }
+        elseif($language="FR"){
+            $data = json_decode(tmdbget("movie/$id",['language'=>"fr"]));
+        }
+        $info = [];
+        $info["title"]=$data->title;
+        $info["originale_title"]=$data->original_title;
+        if(isset($data->tagline)){
+           $info["tagline"]=$data->tagline;
+        }
+        $info["description"]=$data->overview;
+        $info["link"] = "https://www.themoviedb.org/movie/" . $id. "-" . str_replace(" ", "-", $info["original_title"]);
+        $info["poster_path"]="https://image.tmdb.org/t/p/w154/" . $data->poster_path; 
+        $info["video_key"]= "https://youtube.com/embed/" . $data->results[0]->key;
+        return $info;
+
+    }
+    function All_languages_info($id){
+        $All=[];
+        $All["OR"]=get_info($id ,"OR");
+        $All["ANG"]=get_info($id ,"FR");
+        $All["FR"]=get_info($id ,"ANG");
+        return $All;
+    }
+    function movie_to_html($All){
+        echo '<table>';
+        echo '<caption>'."Informations sur le film d'identifiant:"."$id".'</caption>';
+        echo '<br>';
+        echo '<tr>';
+        echo '<th>'."&nbsp;".'</th>';
+        echo '<th>'."VO".'</th>';
+        echo '<th>'."VANG".'</th>';
+        echo '<th>'."VF".'</th>';
+        echo '</br>';
+        foreach (array_keys($All["OR"]) as $key) {
+          echo '<tr>';
+          if ($key == "link") {
+              echo '<th>'."link".'</th>';
+              foreach ($All as $language)
+                  echo "<td><a href=" . $language[$key] . ">" . $language[$key] . " </a></td>";
+          } else if($key == "poster_path") {
+              echo '<th>'."Poster".'</th>';
+              foreach ($All as $language)
+                  echo "<td><img src=" . $language[$key] . "></img></td>";
+          } else if($key == "video_key") {
+              echo '<th>'."Trailer".'</th>';
+              foreach ($All as $language)
+                  echo "<td><iframe height='315' width='420' src='" . $language[$key] . "'> </iframe></td>";
+          } else {
+              echo '<th>'.$key.'</th>';
+              foreach ($All as $language)
+                  echo "<td>" . $language[$key] . "</td>";
+          }
+          echo "</tr>";
+      
+      }
+      echo "</table>";
+    }
+
     function get_actors() {
         $credits = [ "movie/120/credits" , "movie/121/credits", "movie/122/credits"];
         $actor_list= [];
