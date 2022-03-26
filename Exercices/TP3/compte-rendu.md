@@ -10,12 +10,16 @@ Sujet choisi : TMDB
 
 
 NB :
- On peut facilement basculé entre les differents parties demandés en TP en ouvrant la page d'acceuil TMDB homepage.php et choisir la fonctionnalité voulue : 
+ On peut facilement basculer entre les differents parties demandés en TP en ouvrant la page d'acceuil TMDB homepage.php et choisir la fonctionnalité voulue : 
  
-   MOVIES : Affichage des informations d'un film par ID.
-   COLLECTION : Affichage des différents films de la collection The Lord of Ring .
-   ACTORS OF A COLLECTION : Affichage de tout les acteurs participant à la collection the lord of rings . 
-   ROLES OF ACTORS : Affichage de tout les roles joués par un acteur par son ID . 
+   -MOVIES : Affichage des informations d'un film par ID.
+   
+   -COLLECTION : Affichage des différents films de la collection The Lord of Ring .
+   
+   -ACTORS OF A COLLECTION : Affichage de tout les acteurs participant à la collection the lord of rings . 
+   
+   -ROLES OF ACTORS : Affichage de tout les roles joués par un acteur par son ID . 
+   
    
 1-format de réponse : JSON 
  film concerné : FIGHT CLUB 
@@ -24,30 +28,36 @@ NB :
  On ajoute à la fin du l'URL : &language=fr
  
   http://api.themoviedb.org/3/movie/550?api_key=ebb02613ce5a2ae58fde00f4db95a9c1&language=fr
-
+   
+   
+   
+   
 2- Pour afficher le résultat en terminal , on utilise la fonction tmdbget donné dans le fichier helper avec parametre de fonction : movie/550 
 
 
-3-( fichiers formulaire.php et traitement.php)
+
+
+
+3-4( fichiers formulaire.php et traitement.php)
 A l'aide d'un formulaire "formulaire.html" on demande l'ID d'un film , 
 cet ID est par la suite récupérer à travers  $id=GET['id'] . 
 En se basant sur l'URL :
   http://api.themoviedb.org/3/movie/550 api_key=ebb02613ce5a2ae58fde00f4db95a9c1 
   
-  On peut récupérer les données contenues dans l'URL par l'instruction 
-  $data = json_decode(tmdbget("movie/$id"));
+  On se sert de 3 fonctions implémentés dans functions.php 
+  la 1ere : get_info($id, $language=null)
+  permet de créer un tableau associative selon le language entré en paramètre . ce tableau contient les differents champs identifiant un film . 
   
-  $data est donc un tableau associative contenant tout les données du film . On choisie que les champs voulues pour les afficher  dans une table html . (title , original title , tagline , overview , homepage ..)
+  la 2ème :All_languages_info($id)
+  permet de créer un tableau contenant les informations d'un films en 3 versions : originale , anglaise et francaise .
+  
+  la 3ème: movie_to_html($All) 
+  Permet d'afficher le tableau recuperer par la fonction precedente en une table html . 
   
   
- 4-( fichier traitement.php)
- l'affichage des donnée d'un film sur 3 colonnes (langue originale , francais , anglais ) se fait en précisant le 2eme parametre de la fonction tmdbget() . 
-  $data1 = json_decode(tmdbget("movie/$id",['language'=>"fr"]));
-  $data2 = json_decode(tmdbget("movie/$id/videos",['language'=>"en-US"]));
-  $data3 = json_decode(tmdbget("movie$id" ['language'=>"$langue_original"]));
   
-  $langue_original est récupérer comme ainsi : $langue_original=$data1->original_language;
-
+  
+  
 5-Image : ( fichier traitement.php)
    Pour savoir les tailles des posters autorisées : 
     https://api.themoviedb.org/3/configuration?api_key=ebb02613ce5a2ae58fde00f4db95a9c1
@@ -69,7 +79,10 @@ En se basant sur l'URL :
     
     
     
-  6-voir le fichier traitement2.php 
+    
+    
+    
+  6-voir le fichier traitement2.php et function.php
   On récupère l'ID de la collection "The Lord Of Rings" par : 
   
   $data1 = json_decode(tmdbget("/search/collection", ["query" => $name]));
@@ -79,6 +92,15 @@ Ensuite on retrouve l'ID de chaque film de la collection à travers l'instructio
 $data2 = json_decode(tmdbget("collection/$id"));
 
 On implémente donc dans une table html les informations de chaque film trouvé dans la collection . 
+
+On se sert de 2 fonctions l'une get_moviesofcollection() permet de retrouver l'id de chaque film de la colletion stocker ses informations (id , titre , date de sortie ) dans un tableau . 
+
+ensuite , on utilise la fonction moviesocollection_tohtml($Collection)
+pour afficher le tableau $collection fournit par la fonction précédente en une table html.
+
+
+
+
 
 
 7-(fichier traitement3.php)
@@ -95,7 +117,15 @@ On implémente donc dans une table html les informations de chaque film trouvé 
                 }
   la function to_html permet ensuite d'afficher les données retournées par la fonction précédente en page html .               
                 
+                
+                
+                
+                
  8-On peut afficher que les acteurs dont le nom du personnage joué contient "hobbit". Par exemple "Kissing Hobbit" joué par Zo Hartley pourra être affiché alors qu'on peut afficher "Frodo" joué par Elijah Wood.
+ 
+ 
+ 
+ 
  
  9-(fichier traitement4.php) 
  Dans la liste des acteurs, pour transformer chaque acteur en lien-rebond donnant la liste des films auxquels il a participé , on utilise l'instruction : 
@@ -109,6 +139,10 @@ On implémente donc dans une table html les informations de chaque film trouvé 
   la fonction retourne un tableau contenant la films joués par cet acteur , le son role dans ce film et l'aperçu de ce film . 
   
   on place dans le fichier traitement4.php un formulaire permettant d'avoir l'ID d'un acteur et donc faire appel aux 2 fonctions précédentes pour l'affichage des résultats . 
+  
+  
+  
+  
   
  10- Pour rajouter la bande d'annonce dans l'information d'un film , 
  on ajoute une dernier ligne nommé Trailer puis on utilise l'instruction : 
