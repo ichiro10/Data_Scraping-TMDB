@@ -69,6 +69,47 @@ require_once("tp3-helpers.php");
       echo "</table>";
     }
 
+    function get_moviesofcollection(){
+        $name= "The Lord of rings";
+        $data1 = json_decode(tmdbget("/search/collection", ["query" => $name]));
+        $id = $data1->results[0]->id;
+        $data2 = json_decode(tmdbget("collection/$id"));
+        $Collection=[];
+        for($i=0 ; $i<=2 ; $i++){
+            $film=[];
+            $film["id"]=$data2-> parts[$i]->id;
+            $film["title"]=$data2->parts[$i]->title;
+            $film["date_sortie"]=$data2-> parts[$i]->release_date;
+            $Collection[]=$film; 
+        }
+        return $Collection;
+
+
+    }
+
+    function moviesocollection_tohtml($Collection){
+        echo '<table>';
+        echo '<caption>'."Informations sur le film:".'</caption>';
+        echo '<br>';
+        echo '<tr>';
+        echo '<th>'."&nbsp;".'</th>';
+        echo '<th>'."ID".'</th>';
+        echo '<th>'."Titre".'</th>';
+        echo '<th>'."Date de sortie".'</th>';
+        echo '</br>';
+        for($i=0 ; $i<=2 ; $i++){
+            $a=$i+1;
+            echo '<tr>';
+            echo '<th>'."film".$a.'</th>';
+            echo '<td>'.$Collection[$i]["id"].'</td>';
+            echo '<td>'.$Collection[$i]["title"].'</td>';
+            echo '<td>'.$Collection[$i]["date_sortie"].'</td>';
+            echo "</tr>";
+        }
+        echo "</table>";
+
+    }
+
     function get_actors() {
         $credits = [ "movie/120/credits" , "movie/121/credits", "movie/122/credits"];
         $actor_list= [];

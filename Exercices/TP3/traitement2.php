@@ -1,21 +1,6 @@
 <?php
 require_once("tp3-helpers.php");
-$name= "The Lord of rings";
-$data1 = json_decode(tmdbget("/search/collection", ["query" => $name]));
-$id = $data1->results[0]->id;
-$data2 = json_decode(tmdbget("collection/$id"));
-
-
-$id1 = $data2-> parts[0]->id; 
-$titre1 = $data2-> parts[0]->title;
-$date_sortie1= $data2-> parts[0]->release_date; 
-$id2 = $data2-> parts[1]->id; 
-$titre2 = $data2-> parts[1]->title;
-$date_sortie2= $data2-> parts[1]->release_date; 
-$id3 = $data2-> parts[2]->id; 
-$titre3 = $data2-> parts[2]->title;
-$date_sortie3= $data2-> parts[2]->release_date; 
-
+require_once("functions.php");
 ?>
 
 <!DOCTYPE html>
@@ -63,34 +48,14 @@ $date_sortie3= $data2-> parts[2]->release_date;
   </nav>
   <br>
   <br>
-<table>
-    <caption>
-        <?php echo "The Lord of the Rings Collection" ?>
-    </caption>  
-    <tr>
-        <th>&nbsp;</th>
-        <th> id </th>
-        <th> Titre </th>
-        <th> Date de sortie </th>
-    </tr>
-    <tr>
-        <td>Film1</td>
-        <td><?php echo "$id1" ?></td>
-        <td><?php echo "$titre1" ?></td>
-        <td><?php echo "$date_sortie1" ?></td>
-    </tr>    
-    <tr>
-        <td>Film2</td>
-        <td><?php echo "$id2" ?></td>
-        <td><?php echo "$titre2" ?></td>
-        <td><?php echo "$date_sortie2" ?></td>
-    </tr>    
-    <tr>
-        <td>Film3</td>
-        <td><?php echo "$id3" ?></td>
-        <td><?php echo "$titre3" ?></td>
-        <td><?php echo "$date_sortie3" ?></td>
-    </tr>    
+  <?php 
+            echo '<div class="table">';
+            $Collection=get_moviesofcollection();
+            moviesocollection_tohtml($Collection);
+            echo '</div>';
+     ?>
+  
+    
 </body>
 </html>
 
